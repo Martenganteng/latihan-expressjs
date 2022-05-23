@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mobile Legend: Bang Bang</title>
+    <style>
+      :root {
+        --ungu: #1a1a40;
+        --pink: #fa58b6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+
+      a {
+        text-decoration: none;
+        color: #000;
+      }
+
+      .container-fluid {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .bg-image {
+        position: relative;
+        background: url("https://1.bp.blogspot.com/-CCuLGhweP-c/XniwJYidjQI/AAAAAAAABsI/N7Svvx9XbJ0N5PVoHyrgnNtCcTS0D5x_ACLcBGAsYHQ/s1600/Wallpaper-Roger-Phantom-Pirate-Skin-Mobile-Legends-HD-for-PC-Hobigame.net.jpg");
+        background-size: cover;
+        background-position: center;
+      }
+
+      /* mobile */
+      @media screen and (max-width: 768px) {
+        .bg-image {
+          background-position: -150px 0;
+        }
+      }
+
+      .blur {
+        animation: blur 1s ease-in-out;
+      }
+
+      .button {
+        display: flex;
+        gap: 20px;
+      }
+
+      .button a {
+        font-size: 3rem;
+        animation: slideUp 1s ease-in-out;
+      }
+
+      @keyframes slideUp {
+        0% {
+          transform: translateY(40px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0px);
+          opacity: 1;
+        }
+      }
+
+      .btn {
+        padding: 14px 35px;
+        background: white;
+        color: var(--ungu);
+        border-radius: 10px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .btn:hover {
+        transform: translateY(-10px);
+      }
+
+      .shadow {
+        box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+      }
+
+      .footer {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        bottom: 20px;
+        /* flex-direction: column; */
+        gap: 10px;
+      }
+
+      .footer,
+      .footer a {
+        font-size: 1.2rem;
+        color: white;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid bg-image">
+      <div class="overlay"></div>
+      <div class="button">
+        <a href="/hero" class="btn btn-primary shadow">Hero</a>
+        <a href="/gear" class="btn btn-secondary shadow">Gear</a>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2022 <a href="https://github.com/hellogung">💗 hellogung</a>
+    </div>
+  </body>
+</html>

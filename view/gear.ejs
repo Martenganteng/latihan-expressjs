@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= gears.title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <%- include("./style/styleGear") %>
+  </head>
+  <body>
+    <!-- Main Section -->
+    <div class="container">
+      <%- include("./template/header") %>
+      <section class="list-hero">
+        <h1 class="title text-center">Gear Mobile Legends</h1>
+        <div class="hero-container mt-1">
+          <% for(const [index, gear] of gears.data.entries()) { %>
+          <a
+            href="/gear/<%= gear.id %>"
+            id="<%= gear.id %>"
+            class="hero-card shadow rounded fadeIn"
+          >
+            <div class="hero-image">
+              <img
+                src="https://omahgame.com/wp-content/uploads/2020/08/Courage-Mask.png"
+                alt="<%= gear.name %>"
+              />
+            </div>
+            <div class="hero-body text-center">
+              <div class="hero-title"><%= gear.name %></div>
+              <div class="hero-description">
+                <p><%= gear.deskripsi %></p>
+              </div>
+              <div class="d"></div>
+            </div>
+          </a>
+          <% } %>
+        </div>
+      </section>
+    </div>
+
+    <!-- Button Add Hero -->
+    <div class="add-hero">
+      <a href="#open-modal" title="Alt + N" class="add">+</a>
+      <span>Alt + N</span>
+    </div>
+
+    <!-- Modal Add Gear -->
+    <div id="open-modal" class="modal-window">
+      <div class="shadow rounded">
+        <div class="modal-title">
+          <h2 class="title">Add Gear</h2>
+          <a href="#" title="Close" class="modal-close">Close</a>
+        </div>
+        <div class="modal-content">
+          <form action="/gear/add" method="post">
+            <input
+              type="text"
+              placeholder="Gear Name*"
+              name="name"
+              id="gear-name"
+              class="rounded"
+              autofocus="true"
+              autocomplete="off"
+              required
+            />
+            <textarea
+              name="deskripsi"
+              class="rounded"
+              placeholder="Deskripsi Gear"
+            ></textarea>
+            <input type="file" name="" id="" class="rounded" disabled />
+            <button type="submit" class="rounded">Add Hero</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div class="contextMenu">
+      <ul>
+        <a href="#">
+          <li>Edit</li>
+        </a>
+        <a href="#" onclick="return confirm('Continue delete Gear ?')">
+          <li>Delete</li>
+        </a>
+      </ul>
+    </div>
+    <%- include("./template/footer") %>
+  </body>
+
+  <script>
+    document.addEventListener("keydown", function (event) {
+      if (event.altKey && event.key === "n") {
+        location.href = "#open-modal";
+        const heroName = document.getElementById("hero-name");
+        heroName.focus();
+      }
+    });
+  </script>
+
+  <script>
+    const contextMenu = document.querySelector(".contextMenu");
+    const editMenu = document.querySelector(".contextMenu a:first-child");
+    const deleteMenu = document.querySelector(".contextMenu a:last-child");
+
+    const heroCard = document.querySelectorAll(".hero-card");
+    for (const hero of heroCard) {
+      hero.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        let x = e.x;
+        y = e.y;
+        contextMenu.style.left = `${x}px`;
+        contextMenu.style.top = `${y}px`;
+        contextMenu.style.visibility = "visible";
+
+        editMenu.href = `gear/${hero.id}`;
+        deleteMenu.href = `/gear/remove/${hero.id}`;
+
+        document.addEventListener(
+          "click",
+          () => (contextMenu.style.visibility = "hidden")
+        );
+      });
+    }
+  </script>
+</html>

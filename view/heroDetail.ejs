@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>😸 <%= hero.data[0].name %> - Mobile Legend</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ungu: #1a1a40;
+        --pink: #fa58b6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+
+      a {
+        text-decoration: none;
+        color: #000;
+      }
+
+      .container-fluid {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .bg-image {
+        position: relative;
+        background: url("https://cdn.popculture.id/wp-content/uploads/2021/12/moba1.png");
+        background-size: cover;
+        background-position: center;
+      }
+
+      .blur {
+        animation: blur 1s ease-in-out;
+      }
+
+      @keyframes blur {
+        0% {
+          filter: blur(0px);
+        }
+        100% {
+          filter: blur(10px);
+        }
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        opacity: 0.6;
+      }
+
+      .card {
+        width: 400px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 2em;
+        background: white;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .button {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 10px 15px;
+        border: 2px solid #aaa;
+        font-size: 0.9rem;
+        color: var(--ungu);
+        outline: none;
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        /* background: #000; */
+        border: 2px solid var(--ungu);
+        transition: all 0.3s ease-in-out;
+      }
+
+      textarea {
+        resize: vertical;
+
+        /* Trunecate multiline */
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        white-space: normal;
+      }
+
+      select {
+        background: #fff;
+      }
+
+      button,
+      a.btn {
+        font-size: 1rem;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .rounded {
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .btn-primary {
+        background: var(--ungu);
+        border: 2px solid var(--ungu) !important;
+        color: var(--pink);
+        font-weight: 500;
+      }
+
+      .btn-secondary {
+        font-weight: 500;
+        /* border: 2px solid var(--ungu) !important; */
+        color: var(--ungu);
+      }
+
+      .btn-danger {
+        border: 2px solid red !important;
+        background: red;
+        font-weight: 500;
+        color: white;
+      }
+      .shadow {
+        box-shadow: 0 8px 20px -5px rgba(68, 88, 107, 0.5);
+      }
+
+      .text-center {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid bg-image">
+      <div class="overlay"></div>
+      <form action="/hero/update" method="post" class="card rounded shadow">
+        <h2 class="hero-name text-center">
+          <span><%= hero.data[0].name %></span> -
+          <span><%= hero.data[0].role %></span>
+        </h2>
+        <input
+          type="text"
+          name="id"
+          class="form-control"
+          value="<%= hero.data[0].id %>"
+          hidden
+        />
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="rounded"
+          placeholder="Hero Name"
+          value="<%= hero.data[0].name %>"
+          required
+        />
+        <select name="role" id="role" class="rounded" required>
+          <option value="Fighter">Fighter</option>
+          <option value="Assasins">Assasins</option>
+          <option value="Tank">Tank</option>
+          <option value="Marksman">Marksman</option>
+          <option value="Mage">Mage</option>
+          <option value="Support">Support</option>
+        </select>
+        <input
+          type="text"
+          name="skill"
+          id="skill"
+          class="rounded"
+          placeholder="Skill Hero"
+          value="<%= hero.data[0].skill %>"
+        />
+        <textarea
+          name="story"
+          class="rounded"
+          id="story"
+          placholder="Story Hero"
+          rows="5"
+        >
+<%= hero.data[0].story %></textarea
+        >
+        <div class="button">
+          <a href="/hero/" class="btn rounded btn-secondary">Back</a>
+          <button type="submit" class="btn-primary">Save</button>
+          <a
+            href="/hero/remove/<%= hero.data[0].id %>"
+            class="btn rounded btn-danger"
+            onclick="return confirm('Continue delete a Hero ?')"
+            >Delete</a
+          >
+        </div>
+      </form>
+    </div>
+  </body>
+  <script>
+    const heroName = document.querySelector(".hero-name span:nth-child(1)");
+    const heroRole = document.querySelector(".hero-name span:nth-child(2)");
+    const name = document.querySelector("#name");
+    const role = document.querySelector("#role");
+
+    name.addEventListener("keyup", function () {
+      heroName.textContent = name.value;
+    });
+
+    role.addEventListener("change", function () {
+      heroRole.textContent = role.value;
+    });
+  </script>
+</html>

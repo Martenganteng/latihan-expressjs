@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>😸 <%= heroes.title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <%- include("./style/styleHero") %>
+  </head>
+
+  <body>
+    <!-- Main Section -->
+    <div class="container">
+      <%- include("./template/header") %>
+      <section class="list-hero">
+        <h1 class="title text-center">Hero Mobile Legends</h1>
+        <div class="hero-container mt-1">
+          <% for(const [index, hero] of heroes.data.entries()) { %>
+          <a
+            href="/hero/<%= hero.id %>"
+            id="<%= hero.id %>"
+            class="hero-card shadow rounded fadeIn"
+          >
+            <div class="hero-image">
+              <img
+                src="https://cdn.popculture.id/wp-content/uploads/2021/12/moba1.png"
+                alt="<%= hero.name %>"
+              />
+            </div>
+            <div class="hero-body">
+              <div class="hero-title"><%= hero.name %> (<%= hero.role %>)</div>
+              <div class="hero-description">
+                <p><%= hero.story %></p>
+              </div>
+              <div class="d"></div>
+            </div>
+          </a>
+          <% } %>
+        </div>
+      </section>
+    </div>
+
+    <!-- Button Add Hero -->
+    <div class="add-hero">
+      <a href="#open-modal" title="Alt + N" class="add">+</a>
+      <span>Alt + N</span>
+    </div>
+
+    <!-- Modal Add Hero -->
+    <div id="open-modal" class="modal-window">
+      <div class="shadow rounded">
+        <div class="modal-title">
+          <h2 class="title">Add Hero</h2>
+          <a href="#" title="Close" class="modal-close">Close</a>
+        </div>
+        <div class="modal-content">
+          <form action="/hero/add" method="post">
+            <input
+              type="text"
+              placeholder="Hero Name*"
+              name="name"
+              id="hero-name"
+              class="rounded"
+              autofocus="true"
+              autocomplete="off"
+              required
+            />
+            <select name="role" class="rounded" id="role" required>
+              <option value="" disabled selected hidden>Select hero*</option>
+              <option value="Fighter">Fighter</option>
+              <option value="Assasins">Assasins</option>
+              <option value="Tank">Tank</option>
+              <option value="Marksman">Marksman</option>
+              <option value="Mage">Mage</option>
+              <option value="Support">Support</option>
+            </select>
+
+            <input
+              type="text"
+              placeholder="Skill Hero"
+              name="skill"
+              class="rounded"
+              autofocus
+            />
+            <textarea
+              name="story"
+              class="rounded"
+              placeholder="Story Hero"
+            ></textarea>
+            <input type="file" name="" id="" class="rounded" disabled />
+            <button type="submit" class="rounded">Add Hero</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div class="contextMenu">
+      <ul>
+        <a href="#">
+          <li>Edit</li>
+        </a>
+        <a href="#" onclick="return confirm('Continue delete Hero ?')">
+          <li>Delete</li>
+        </a>
+      </ul>
+    </div>
+    <%- include("./template/footer") %>
+    <script>
+      document.addEventListener("keydown", function (event) {
+        if (event.altKey && event.key === "n") {
+          location.href = "#open-modal";
+          const heroName = document.getElementById("hero-name");
+          heroName.focus();
+        }
+      });
+    </script>
+
+    <script>
+      const contextMenu = document.querySelector(".contextMenu");
+      const editMenu = document.querySelector(".contextMenu a:first-child");
+      const deleteMenu = document.querySelector(".contextMenu a:last-child");
+
+      const heroCard = document.querySelectorAll(".hero-card");
+      for (const hero of heroCard) {
+        hero.addEventListener("contextmenu", (e) => {
+          e.preventDefault();
+          let x = e.x;
+          y = e.y;
+          contextMenu.style.left = `${x}px`;
+          contextMenu.style.top = `${y}px`;
+          contextMenu.style.visibility = "visible";
+
+          editMenu.href = `/hero/${hero.id}`;
+          deleteMenu.href = `/hero/remove/${hero.id}`;
+
+          document.addEventListener(
+            "click",
+            () => (contextMenu.style.visibility = "hidden")
+          );
+        });
+      }
+    </script>
+  </body>
+</html>
