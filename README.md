@@ -1,2 +1,2 @@
 # latihan-expressjs
-db nya maaf gak ada. karena gak bisa di export ke .sql
+repository praktek belajar express js CRUD di course Kang Dea Afrizal
