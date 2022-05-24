@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: May 23, 2022 at 06:36 PM
--- Server version: 5.7.34
--- PHP Version: 8.0.8
+-- Host: localhost:3306
+-- Generation Time: May 24, 2022 at 09:29 AM
+-- Server version: 5.7.24
+-- PHP Version: 8.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,9 +30,15 @@ SET time_zone = "+00:00";
 CREATE TABLE `gear` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `deskripsi` text NOT NULL,
-  `hero_id` int(11) NOT NULL
+  `deskripsi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `gear`
+--
+
+INSERT INTO `gear` (`id`, `name`, `deskripsi`) VALUES
+(1, 'congkrang', '');
 
 -- --------------------------------------------------------
 
@@ -79,7 +85,7 @@ ALTER TABLE `hero`
 -- AUTO_INCREMENT for table `gear`
 --
 ALTER TABLE `gear`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `hero`
