@@ -21,7 +21,9 @@
       <section class="list-hero">
         <h1 class="title text-center">Hero Mobile Legends</h1>
         <div class="hero-container mt-1">
-          <% for(const [index, hero] of heroes.data.entries()) { %>
+          <%- (!heroes.data.length) ? `<span class="center"
+            >- hero doesn't exist -</span
+          >` : `` %> <% for(const [index, hero] of heroes.data.entries()) { %>
           <a
             href="/hero/<%= hero.id %>"
             id="<%= hero.id %>"

@@ -20,7 +20,9 @@
       <section class="list-hero">
         <h1 class="title text-center">Gear Mobile Legends</h1>
         <div class="hero-container mt-1">
-          <% for(const [index, gear] of gears.data.entries()) { %>
+          <%- (!gears.data.length) ? `<span class="center"
+            >- gear doesn't exist -</span
+          >` : `` %> <% for(const [index, gear] of gears.data.entries()) { %>
           <a
             href="/gear/<%= gear.id %>"
             id="<%= gear.id %>"
